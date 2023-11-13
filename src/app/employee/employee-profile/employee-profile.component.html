@@ -1,0 +1,362 @@
+
+
+<ng-container *ngIf="!data then loader;else profile" >
+
+</ng-container>
+
+<ng-template #profile>
+<div class="row ">
+<div class="col-md-4 profile-container-left">
+<div class="box col  box-primary row">
+
+ <img  [src]="imageSrc ||userImage" alt="" class="img-thumbnail">
+<div class="profile-name">
+  <span class="display-6 fs-2">{{ data.surname }}</span>
+  <span class="role display-4">{{ data.designation }}</span>
+</div>
+
+<div class="profile-list">
+  <mat-list>
+  <mat-list-item>
+    <mat-icon matListItemIcon>home</mat-icon>
+    <div matListItemTitle>{{ data?.surname }} &nbsp;{{ data?.firstName }}</div>
+  </mat-list-item>
+   <mat-list-item>
+    <mat-icon matListItemIcon>email</mat-icon>
+    <div matListItemTitle>{{ data?.user.email }}</div>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon matListItemIcon>phone</mat-icon>
+    <div matListItemTitle>+234 {{ data.phone }}</div>
+  </mat-list-item>
+
+
+ <p  class="profile-button"> <span class="color-white display-4 fs-5">Profile</span></p>
+</mat-list>
+</div>
+</div>
+</div>
+
+<div class="col card border-0 box-primary mx-4">
+  <div class="card-body">
+  <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+    <!-- PROFILE INFORMATION -->
+  <mat-tab label="PROFILE">
+    <div class="card border-0 mt-5">
+      <div class=" container row">
+      <div class="col gap-2 col-md-12 col-xs-12">
+    <ul class="list-group list-group-flush mb-5">
+  <li class="list-group-item title">Bio Info </li>
+  <li class="list-group-item">Surname <span>{{ data.surname }}</span></li>
+  <li class="list-group-item">First Name<span>{{ data.firstName }}</span></li>
+  <li class="list-group-item">Gender<span>{{ data.gender }}</span></li>
+  <li class="list-group-item">Date Of Birth<span>{{ data?.dob|date }}</span></li>
+  <li class="list-group-item">Nationality<span>{{ data?.nationality }}</span></li>
+  <li class="list-group-item">State of origin<span>{{ data.stateOfOrigin }}</span></li>
+  <li class="list-group-item">LGA<span>{{ data.lgaOfOrigin }}</span></li>
+  <li class="list-group-item">Highest Education<span>{{ data.qulification }}</span></li>
+
+<!-- CONTACT INFO -->
+  <li class="list-group-item title">Contact Info</li>
+  <li class="list-group-item">Address<span>{{ data.contactAddress }}</span></li>
+  <li class="list-group-item">State<span>{{ data.stateOfOrigin }}</span></li>
+  <li class="list-group-item">LGA<span>{{ data.lgaOfOrigin }}</span></li>
+  <li class="list-group-item">Email<span>{{ data.user.email }}</span></li>
+  <li class="list-group-item">Phone<span>{{ data.phone }}</span></li>
+
+  <!-- JOB INFO -->
+  <li class="list-group-item title">Job Information</li>
+  <li class="list-group-item">Designation &nbsp;<sapn>{{ data.designation }}</sapn></li>
+  <li class="list-group-item">Start Date:&nbsp;<sapn>{{ data.hiredDate|date }}</sapn></li>
+  <li class="list-group-item">Location:<sapn>{{ data?.location??"" }}</sapn></li>
+  <li class="list-group-item">Current Salary:&nbsp;<sapn>&#8358;{{ data.salary|number:"1.2" }}</sapn></li>
+  <li class="list-group-item">Job Type:&nbsp;<sapn>{{ data.jobType }}</sapn></li>
+</ul>
+      </div>
+
+</div>
+    </div>
+  </mat-tab>
+
+
+
+
+  <!-- SECURITY -->
+  <mat-tab label="SECURITY">
+    <div class=" row">
+<div class="col-md-6 col-xs-12">
+ <form [formGroup]="employeeForm">
+  <div class="form-group dense-2">
+
+     <mat-form-field appearance="outline">
+      <mat-label>Email Address</mat-label>
+       <input matInput formControlName="email" placeholder="Email Addree">
+   </mat-form-field>
+</div>
+<div class="form-group dense-2">
+  <p class="my-3 text-center">Change Password?</p>
+     <mat-form-field appearance="outline">
+      <mat-label>Current Password</mat-label>
+       <input type="password" matInput formControlName="currentPassword" placeholder="Current Password">
+   </mat-form-field>
+</div>
+
+<div class="form-group dense-2">
+   <mat-form-field appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+       <input type="password" matInput formControlName="password" placeholder="Password">
+   </mat-form-field>
+</div>
+
+<div class="form-group dense-2">
+   <mat-form-field appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+       <input matInput formControlName="passwordConfirm" placeholder="Password">
+   </mat-form-field>
+</div>
+ <mat-progress-bar *ngIf="showLoader" mode="indeterminate"></mat-progress-bar>
+<!-- <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Assign Role</mat-label>
+   <mat-select  multiple name="type_list" formControlName="roles">
+     <mat-option *ngFor="let role of roleList" [value]="role.code"> {{role.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+</div> -->
+<div class="form-group my-5">
+  <button class="profile-button border-0 display-6 fs-6" (click)="updatePassword()"> UPDATE</button>
+</div>
+</form>
+</div>
+<div class="col-md-6 col-xs-12">
+     <div class="box box-primary text-center">
+       <img [src]="imageSrc||userImage" alt="profile" class=" img-thumbnail ">
+
+ <div class="progress form-group" *ngIf="progress > 0" >
+            <div class="progress-bar progress-bar-striped bg-success"
+             role="progressbar" [style.width.%]="progress">
+            </div>
+      </div>
+
+       <div class="form-group my-5">
+        <input type="file" (change)="readURL($event)" formContolName="photo"
+        class="form-control">
+       </div>
+      </div>
+
+</div>
+    </div>
+
+
+  </mat-tab>
+
+<!-- SALES INFO -->
+  <mat-tab label="SALES INFO">
+<app-sales [employeeId]="employeeId"></app-sales>
+  </mat-tab>
+
+<!-- UPDATE CENTER -->
+
+  <mat-tab label="UPDATE CENTER">
+<mat-card>
+
+    <mat-card-content>
+     <mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="employeeForm">
+    <form [formGroup]="employeeForm">
+      <ng-template matStepLabel>PERSONAL INFORMATION</ng-template>
+     <div class="container">
+
+   <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>Surname</mat-label>
+        <input matInput formControlName="surname" >
+      </mat-form-field>
+   </div>
+     <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" >
+      </mat-form-field>
+   </div>
+   <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" >
+      </mat-form-field>
+   </div>
+
+   <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Date Of Birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dob">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker  #picker></mat-datepicker>
+    </mat-form-field>
+      </div>
+
+   <div class="form-group">
+    <mat-label>GENDER</mat-label>
+    <mat-radio-group formControlName="gender">
+    <mat-radio-button  value="male">
+        Male
+    </mat-radio-button>
+    <mat-radio-button  value="female">
+        Female
+    </mat-radio-button>
+    </mat-radio-group>
+   </div>
+
+
+   <div class="form-group mt-2">
+    <mat-label>MARITAL STATUS</mat-label>
+    <mat-radio-group formControlName="maritalStatus">
+    <mat-radio-button  value="Married">
+        Married
+    </mat-radio-button>
+    <mat-radio-button  value="Single">
+       Single
+    </mat-radio-button>
+    </mat-radio-group>
+   </div>
+   <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>Nationality</mat-label>
+        <input matInput formControlName="nationality" >
+      </mat-form-field>
+   </div>
+
+   <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>State Of Origin</mat-label>
+        <input matInput formControlName="stateOfOrigin" >
+      </mat-form-field>
+   </div>
+
+    <div class="form-group dense-2">
+     <mat-form-field appearance="outline">
+        <mat-label>LGA of origin</mat-label>
+        <input name="lgaOfOrigin" matInput formControlName="lgaOfOrigin" >
+      </mat-form-field>
+   </div>
+   <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+       <mat-label>Contact Address</mat-label>
+       <input name="contactAddress" matInput formControlName="contactAddress" >
+     </mat-form-field>
+  </div>
+  <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+       <mat-label>Educational Qualification</mat-label>
+       <input name="qualification" matInput formControlName="qualification" >
+     </mat-form-field>
+  </div>
+</div>
+  </form>
+      <div>
+        <button mat-button matStepperNext>NEXT</button>
+      </div>
+  </mat-step>
+
+  <mat-step [stepControl]="employeeForm" label="JOB INFORMATION">
+    <form [formGroup]="employeeForm">
+
+  <div class="form-group dense-2">
+ <mat-form-field appearance="outline">
+  <mat-label>Department</mat-label>
+  <mat-select formControlName="department">
+    <mat-option *ngFor="let dept of department" [value]="dept.value">{{ dept.label }}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+   </div>
+
+   <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Designation</mat-label>
+      <input type="text" name="designation"
+             placeholder="Pick Designation"
+             matInput
+             [formControl]="designation"
+             formControlName="designation"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredDesignation | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+    <div class=" form-group ">
+      <mat-label>JOB TYPE</mat-label>
+      <mat-radio-group formControlName="jobType">
+      <mat-radio-button  value="Full Time">
+          Full Time
+      </mat-radio-button>
+      <mat-radio-button  value="Part Time">
+          Part Time
+      </mat-radio-button>
+      </mat-radio-group>
+     </div>
+
+     <div class="form-group ">
+      <mat-label>WORK STYLE</mat-label>
+      <mat-radio-group formControlName="workStyle">
+      <mat-radio-button  value="At Office">
+          At Office
+      </mat-radio-button>
+      <mat-radio-button  value="Remote">
+          Remote
+      </mat-radio-button>
+      <mat-radio-button  value="Contact">
+        Hybrid
+    </mat-radio-button>
+      </mat-radio-group>
+     </div>
+
+   <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Job Start Date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="hiredDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker  #picker2></mat-datepicker>
+    </mat-form-field>
+      </div>
+
+    <div class="form-group dense-2">
+      <mat-form-field appearance="outline">
+       <mat-label>Salary (&#8358;)</mat-label>
+       <input type="number" matInput  formControlName="salary">
+       </mat-form-field>
+        </div>
+    </form>
+    <div>
+        <button mat-button matStepperPrevious>BACK</button>
+        <button class="float-end" mat-raised-button color="primary" (click)="updateEmployeeProfile()">UPDATE PROFILE</button>
+      </div>
+  </mat-step>
+
+</mat-stepper>
+    </mat-card-content>
+
+</mat-card>
+
+  </mat-tab>
+</mat-tab-group>
+</div>
+</div>
+
+</div>
+
+</ng-template>
+
+<!-- PROFILE FORM -->
+<!-- <ng-template >
+  .
+</ng-template> -->
+<ng-template #loader >
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

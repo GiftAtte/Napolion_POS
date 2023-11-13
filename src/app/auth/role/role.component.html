@@ -1,0 +1,59 @@
+<div class="card border-0">
+  <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+  <p class="display-6 fs-4 mx-5 mt-5">
+    Assign Roles
+  </p>
+  <div class="container my-5">
+  
+<div class="box box-primarr">
+
+<div class="row gap-2">
+  <div class="col col-xs-12">
+
+
+<div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Select Users</mat-label>
+   <mat-select   name="user" (selectionChange)="setSelectedUser($event)">
+     <mat-option *ngFor="let user of employee" [value]="user.user._id"> {{user.surname}}, {{user.firstName}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  </div>
+
+</div>
+<div class="col col-xs-12">
+
+  <div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Assign Roles</mat-label>
+   <mat-select [ngModel]="roleIds"  multiple name="roleIds" (selectionChange)="onEmployeeChange($event)">
+     <mat-option *ngFor="let role of roleList" [value]="role.code"> {{role.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  </div>
+</div>
+
+</div>
+<div class="row">
+ 
+  <div class="col">
+  <div class="box box-primary">
+<p class="display-6
+fs-5">Selected Roles</p>
+<ul class="list-group">
+  <li class="list-group-item display-6 fs-5" *ngFor="let role of roles">
+    {{ role.name }}
+  </li>
+</ul>
+  </div>
+</div>
+
+
+  </div>
+
+  
+</div>
+<button mat-button color="primary" class="mx-5 float-end" (click)="addRoles()">
+  ADD ROLES
+</button>
+</div>

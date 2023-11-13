@@ -1,0 +1,42 @@
+<div class="card border-0">
+  <div class="card-body">
+    <div class="container">
+      <!-- <app-datatable
+[tableTitle]="tableTitle"
+[data]="data"
+[showAction]="showAction"
+[showToolBar]="showToolBar"
+[tableHeaders]="tableHeaders"
+(editEvent)="openCategoryForm($event)"
+[formData]="row"
+(showDetailsEvent)="goToProfile($event)"
+(deleteEvent)="deleteCategory($event)"
+(openNewFormEvent)="openCategoryForm($event)"
+>
+</app-datatable> -->
+
+      <app-table
+        [tableData]="data"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [showDetailsButton]="false"
+        [showAction]="false"
+        [isLoading]="isLoading"
+        [showToolBar]="showToolBar"
+        (editEvent)="openStockForm($event)"
+        (deleteEvent)="deleteStock($event)"
+        (openNewFormEvent)="openStockForm($event)"
+      >
+      </app-table>
+    </div>
+    <mat-paginator class="mb-5 pb-5"
+      [length]="totalData"
+      [pageSize]="100"
+      [pageSizeOptions]="[10, 25, 50, 75, 100,200,500]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

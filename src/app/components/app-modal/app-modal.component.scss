@@ -1,0 +1,14 @@
+.mat-card{
+  height: auto;
+}
+.modal-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin: 2rem;
+  border-top: 0.5px solid rgb(226, 223, 223);
+  width: auto;
+  button{
+    display: inline;
+  }
+}

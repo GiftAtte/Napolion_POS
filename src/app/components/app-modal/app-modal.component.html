@@ -1,0 +1,36 @@
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class="mx-4">
+     {{modalTitle }}
+    </mat-card-title>
+  </mat-card-header>
+<mat-divider></mat-divider>
+  <mat-card-content class="my-3">
+    <div mat-dialog-content>
+
+
+<ng-content select="modal-content"></ng-content>
+
+<div class="text-center text-primary" *ngIf="showLoader">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+  </div>
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    <div mat-dialog-actions class="modal-footer container my-2">
+      <button  mat-dialog-close color="warn" class="btn btn-danger float-end mx-2">
+        Canel
+      </button>
+      <ng-container *ngIf="showActionBtn">
+        <button *ngIf="!isUpdate" class="btn btn-primary float-end" [class]="showLoader?'disabled':''" (click)="addNew()">Save</button>
+        <button *ngIf="isUpdate" class="btn btn-primary float-end" (click)="updateInfo()">Update</button>
+      </ng-container>
+    </div>
+  </mat-card-footer>
+</mat-card>

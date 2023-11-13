@@ -1,0 +1,105 @@
+<app-modal
+  [modalTitle]="data.modalTitle"
+  [isUpdate]="isUpdate"
+  [showLoader]="isLoading"
+  (createActionEmitter)="addStock()"
+  (updateActionEmitter)="updateStock()"
+>
+  <modal-content>
+    <div class="container">
+      <form [formGroup]="stockForm">
+        <div class="form-group dense-2">
+        <!-- <mat-form-field appearance="outline">
+        <mat-label>Product</mat-label>
+       <mat-select formControlName="product" (valueChange)="onProductChange($event)">
+       <mat-option selected>Select Product</mat-option>
+         <ng-container *ngIf="products">
+         <mat-option
+         *ngFor="let product of products" [value]="product._id">
+         {{ product.name }}
+        </mat-option>
+        </ng-container>
+       </mat-select>
+    </mat-form-field> -->
+
+
+
+
+    <mat-form-field appearance="outline" >
+      <mat-label>Products</mat-label>
+     <mat-select
+     formControlName="product" (valueChange)="onProductChange($event)"
+     #singleSelect>
+       <ng-container *ngIf="products" >
+        <mat-option selected>Select Product</mat-option>
+        <mat-option>
+        <ngx-mat-select-search [formControl]="productId"></ngx-mat-select-search>
+      </mat-option>
+        <mat-option
+        *ngFor="let pro of filteredProducts| async" [value]="pro._id">
+        {{ pro.name }}
+       </mat-option>
+      </ng-container>
+     </mat-select>
+  </mat-form-field>
+
+
+        </div>
+
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+          <mat-label>Unit Type</mat-label>
+         <mat-select formControlName="stockUnit">
+         <mat-option selected>Select Unit</mat-option>
+           <ng-container *ngIf="products">
+           <mat-option [value]="selectedProduct?.bulkUnit">
+            {{ selectedProduct?.bulkUnit }}
+          </mat-option>
+          <mat-option [value]="selectedProduct?.piecesUnit">
+            {{ selectedProduct?.piecesUnit }}
+          </mat-option>
+          </ng-container>
+         </mat-select>
+      </mat-form-field>
+          </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input type="number" matInput formControlName="unitQty" />
+          </mat-form-field>
+        </div>
+        <ng-container *ngIf="!data.destock">
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Cost Price</mat-label>
+            <input type="number" matInput formControlName="costPrice" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+        <mat-form-field appearance="outline">
+        <mat-label>Supplier</mat-label>
+       <mat-select formControlName="supplier">
+       <mat-option selected>Select Category</mat-option>
+         <ng-container *ngIf="suppliers" >
+         <mat-option
+         *ngFor="let supplier of suppliers" [value]="supplier._id">
+         {{ supplier.name }}
+        </mat-option>
+        </ng-container>
+       </mat-select>
+    </mat-form-field>
+        </div>
+        </ng-container>
+        <div class="form-group dense-2" *ngIf="data.destock">
+          <mat-form-field appearance="outline">
+            <mat-label>Reason For Destocking</mat-label>
+            <input type="text" matInput formControlName="destockReason" />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </modal-content>
+</app-modal>

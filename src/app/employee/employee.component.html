@@ -1,0 +1,33 @@
+
+<div class="card border-0">
+  <div class="card-body">
+    <div class="container">
+      <app-table
+        [tableData]="data"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [defaultPageSize]="25"
+        [showAction]="true"
+        [isLoading]="isLoading"
+        [showDetailsButton]="true"
+        [showToolBar]="showToolBar"
+        (editEvent)="openEmployeeForm($event)"
+        (deleteEvent)="deleteEmployee($event)"
+        (openNewFormEvent)="openEmployeeForm($event)"
+        (showDetailsEvent)="gotoProfile($event)"
+        
+      >
+      </app-table>
+    </div>
+    <mat-paginator
+      [length]="totalData"
+      [pageSize]="25"
+      [pageSizeOptions]="[5, 10, 25, 50, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>
+

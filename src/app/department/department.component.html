@@ -1,0 +1,31 @@
+
+<div class="card border-0">
+  <div class="card-body">
+    <div class="container">
+      <app-table
+        [tableData]="data"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [paginationSizes]="[2, 4, 6]"
+        [defaultPageSize]="4"
+        [showAction]="true"
+        [isLoading]="isLoading"
+        [showDetailsButton]="true"
+        [showToolBar]="showToolBar"
+        (editEvent)="openDepartmentForm($event)"
+        (deleteEvent)="deleteDepartment($event)"
+        (openNewFormEvent)="openDepartmentForm($event)"
+      >
+      </app-table>
+    </div>
+    <mat-paginator
+      [length]="totalData"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

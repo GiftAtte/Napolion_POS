@@ -1,0 +1,31 @@
+  
+<ng-container
+  *ngIf="!menuRequired; then auth; else dashboard">
+</ng-container>
+
+<ng-template #dashboard>
+<div class="wrapper" >
+ <app-header></app-header>
+ <app-sidebar></app-sidebar>
+</div>
+</ng-template>
+
+<ng-template #auth>
+<div class="auth-container" >
+<router-outlet ></router-outlet>
+</div>
+ </ng-template>
+  
+ 
+
+
+<!-- <ng-template #loggedIn>
+  <div>
+    Welcome back, friend.
+  </div>
+</ng-template>
+<ng-template #loggedOut>
+  <div>
+    Please friend, login.
+  </div>
+</ng-template> -->

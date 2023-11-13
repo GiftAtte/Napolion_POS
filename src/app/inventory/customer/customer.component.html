@@ -1,0 +1,29 @@
+<div class="card border-0">
+  <div class="card-body">
+    <div class="container">
+      <app-table
+        [tableData]="data"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [showDetailsButton]="true"
+        [showAction]="true"
+        [isLoading]="isLoading"
+        [showToolBar]="showToolBar"
+        (showDetailsEvent)="goToAccount($event)"
+        (editEvent)="openCustomerForm($event)"
+        (deleteEvent)="deleteCustomer($event)"
+        (openNewFormEvent)="openCustomerForm($event)"
+      >
+      </app-table>
+    </div>
+    <mat-paginator
+      [length]="totalData"
+      [pageSize]="25"
+      [pageSizeOptions]="[15,  25, 50, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

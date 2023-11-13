@@ -1,0 +1,60 @@
+<app-modal
+  [modalTitle]="product.productName"
+  [isUpdate]="isUpdate"
+  (createActionEmitter)="optionEmitter()"
+  (updateActionEmitter)="updateProduct()"
+>
+  <modal-content>
+    <div class="container">
+      <form>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+          <mat-label>PRODUCT UNIT</mat-label>
+         <mat-select name="paymentOption" [(ngModel)]="quantityUnit" (valueChange)="onUnitChange($event)">
+         <mat-option selected>SELECT UNIT</mat-option>
+           <ng-container *ngIf="product" >
+           <mat-option value="BULK">{{ product._id[0].bulkUnit }}</mat-option>
+           <mat-option value="HALF">1/2{{ product._id[0].bulkUnit }}</mat-option>
+           <mat-option value="PIECES">{{ product._id[0].piecesUnit }}</mat-option>
+          </ng-container>
+         </mat-select>
+      </mat-form-field>
+
+          </div>
+
+         <div class="form-group dense-2">
+            <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input type="number"
+             matInput [(ngModel)]="quantity"
+             name="quantity"
+             (change)="onQuantityChange()"
+              />
+             
+          </mat-form-field>
+          <span class="text-danger" *ngIf="quantityErr">{{ errorMessage }}</span>
+          
+        </div>
+        
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+          <mat-label>Adjust Price</mat-label>
+          <input type="number"
+           matInput [(ngModel)]="amount"
+           name="amount"
+            />
+        </mat-form-field>
+      </div>
+
+          <p ><b>AMOUNT: &#8358;{{ amount|number:"1.2" }}</b></p>
+        
+          <small>REQ. PC UNITS: {{tempQuntity}}</small><br>
+          <small>AV. PC UNITS: {{product.availableQty}}</small>
+      </form>
+    </div>
+  </modal-content>
+</app-modal>
+
+

@@ -1,0 +1,101 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content class="py-5 mx-2">
+      <h3 class="text-center fs-4">New User</h3>
+      <form
+        (submit)="registerUser()"
+        [formGroup]="userForm"
+        class="registerForm"
+      >
+        <div class="row">
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label>FirstName</mat-label>
+              <input
+                type="text"
+                name="firstname"
+                matInput
+                placeholder="First Name"
+                formControlName="firstname"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input
+                type="text"
+                name="lastname"
+                matInput
+                placeholder="Last Name"
+                formControlName="lastname"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Phone Number</mat-label>
+              <input
+                type="text"
+                name="phonenumber"
+                matInput
+                placeholder="Phoner Number"
+                formControlName="phoneNumber"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>DOB (YYYY/mm/dd)</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" />
+              <mat-datepicker-toggle matIconSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>today</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+           
+          </div>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                name="email"
+                ngModel
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                name="password"
+                ngModel
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                name="confirm_password"
+                ngModel
+                type="password"
+                placeholder="Password"
+                formControlName="confirm_password"
+              />
+            </mat-form-field>
+          <div class="row mx-5">
+          <button mat-fab extended color="primary" >REGISTER</button>
+        </div>
+          </div>
+        </div>
+
+       
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <a routerLink="/auth/login" color="primary" mat-button class="mx-5"
+        >Has an account?</a
+      >
+    </mat-card-actions>
+  </mat-card>
+</div>

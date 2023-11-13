@@ -1,0 +1,39 @@
+@import "../../../color";
+
+span:hover {
+  cursor: pointer;
+  color: $color-primary;
+}
+@media print{
+   body * {
+        visibility: hidden;
+    }
+   .tableUtil,.table-actions{
+       visibility: hidden;
+       display: none;
+      
+      }
+        @page { margin: 2rem ;
+          display: flex;
+          justify-content: center;
+          
+          
+        }
+        table{
+          min-width: 500px;
+        }
+        
+        
+
+}
+
+#tableData{
+  margin-bottom: 2rem;
+}
+img{
+  height: 5rem;
+  margin: 0.5rem;
+  width: 5rem;
+ border-radius: 15px;
+ border: 5px solid rgb(216, 213, 213);
+}

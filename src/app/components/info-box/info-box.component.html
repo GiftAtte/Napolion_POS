@@ -1,0 +1,11 @@
+<div class="box box-primary" (click)="fireClickAction(null)">
+  <div class="row">
+    <!-- <mat-icon class="box__icon text-center">people</mat-icon> -->
+    <i [class]="boxIcon" class="box__icon"></i>
+    <ng-content select="profile-img"></ng-content>
+  </div>
+<div class="row">
+<h3 class="text-center ">{{ boxTitle }}</h3>
+</div>
+  <p class="text-center display-6 fs-5">{{valueUnit }} {{ boxValue.toFixed(2) }}</p>
+</div>

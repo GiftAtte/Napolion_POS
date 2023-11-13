@@ -1,0 +1,84 @@
+
+
+<div class="card border-0 container">
+<div class="row pt-3">
+  <div class=" row">
+    <div class="col-md-5">
+      <mat-card-title class="col-xs-12">
+        {{ tableTitle }}
+      </mat-card-title>
+    </div>
+  <div class="col tool-box-container">
+     <input class="form-control " (keyup)="applyFilter($event)" placeholder="Search" #input/>
+        <ng-container *ngIf="showToolBar">
+         <span>
+            <button mat-icon-button>
+              <mat-icon>printer</mat-icon>
+            </button>
+          </span>
+          <span
+            ><button mat-icon-button>
+              <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+            </span>
+          <span>
+
+<button class="float-end" mat-icon-button (click)="openNewFormEmitter('')">
+<mat-icon>add_circle_outline</mat-icon>
+</button>
+
+         </span>
+         </ng-container>
+        </div>
+</div>
+  </div>
+<ng-container *ngIf="!data.length">
+ <mat-progress-bar mode="query" ></mat-progress-bar>
+  </ng-container>
+<div class="mat-elevation-z0 row table-responsive">
+  <table class="table mt-5" >
+      <thead >
+
+        <tr class="text-uppercase">
+          <th>S/N</th>
+          <th *ngFor="let header of tableHeaders">{{ header.header }}</th>
+           <ng-content select="custom-header"></ng-content>
+          <ng-container *ngIf="showAction">
+            <th class="text-center">Action</th>
+           </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+<ng-container *ngIf="!data">
+    <tr >
+      <td colspan="3" class="text-center  display-6 py-5 fs-4" style="border: none;"> No data</td>
+    </tr>
+  </ng-container>
+      <ng-container *ngIf="data">
+        <tr *ngFor="let row of data; let i=index">
+          <td span="0.5">{{ i+1 }}</td>
+        <td *ngFor="let headers of tableHeaders">
+            <ng-container *ngIf="headers.dataType === 'date'">
+              {{ row[headers.key] | date : "medium" }}
+            </ng-container>
+            <ng-container *ngIf="headers.dataType !== 'date'">
+              {{ row[headers.key] }}
+            </ng-container>
+          </td>
+
+ <ng-content select="custom-column"></ng-content>
+           <ng-container *ngIf="showAction">
+               <td class="table-actions text-center">
+                 <button *ngIf="showDetailsButton" mat-icon-button title="View more details" (click)="showDetailsEventEmitter(row)"><mat-icon >visibility</mat-icon></button>
+                 <button mat-icon-button title="edit" (click)="openEditForm(row)"><mat-icon >edit</mat-icon></button>
+                 <button mat-icon-button title="delete" (click)="deleteAction(row)"><mat-icon >delete</mat-icon></button>
+               </td>
+           </ng-container>
+           <ng-content select="custom-action"></ng-content>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+ 
+</div>
+</div>

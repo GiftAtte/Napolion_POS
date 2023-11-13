@@ -1,0 +1,17 @@
+export const Designation=[
+  "Managing Director",
+  "General Manager",
+  "Admin Manager",
+  "Accountant",
+  "IT Manager",
+  "Camp Boss",
+  "Secetary",
+  "Store Man",
+  "Logistics Manager",
+  "Security",
+  "Engineer",
+  "Cook",
+  "Chef",
+  "Sales Person",
+  "Employee",
+]

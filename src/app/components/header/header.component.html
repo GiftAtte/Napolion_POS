@@ -1,0 +1,49 @@
+<mat-toolbar  class="nav-fixed mat-elevation-z2 " color="primary">
+  <!-- <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
+    <mat-icon>reorder</mat-icon>
+  </button> -->
+  <span color="accent">ANIEKAN NAPOLION 
+    <span class="text-warning">ENT </span>
+    <img class="logo" src="../../../assets/logo.png"  alt="" height="50">  
+  </span>
+  <span class="spacer"></span>
+     <div class="leftNav">
+      <small >{{ currentUser?.name }}</small>
+  <button class="mat-elevation-0"  mat-icon-button  color="secondary" [matMenuTriggerFor]="menu"  class="mx-2" >
+    <img class="img-circle img-thumbnail" [src]="userPhoto||'../../../assets/img/profile/profile.png'" alt="">
+  </button>
+  </div>
+  <mat-menu #menu="matMenu"  yPosition="below">
+  <button mat-menu-item>
+    <mat-icon>perm_identity</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>key</mat-icon>
+    <span>Logout</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="subMenu">
+    <mat-icon>settings</mat-icon>
+    Submenu
+  </button>
+</mat-menu>
+
+<mat-menu #subMenu="matMenu" xPosition="after">
+  <button mat-menu-item>
+    <mat-icon>perm_identity</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item >
+    <mat-icon>key</mat-icon>
+    <span>Logout</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>Settings</mat-icon>
+    <span>settings</span>
+  </button>
+</mat-menu>
+</mat-toolbar>

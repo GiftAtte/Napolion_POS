@@ -1,0 +1,134 @@
+.action-group{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  button{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 1rem;
+    border: none;
+    border-radius: 25px;
+
+  }
+}
+@media print{
+  *{
+    font-size: 12px;
+    // font-family: 'Times New Roman';
+    text-shadow: none;
+    color:#000 !important; 
+    font-weight: normal;
+    text-decoration: none !important;
+  }
+  #invoice{
+    text-transform: uppercase;
+    span{
+      margin: 2px;
+      display: block;
+
+    }
+    margin: 2px;
+    .container{
+    margin: auto;
+    border: 1px solid navy;
+    font-size:10px;
+    border-style:dashed ;
+    border-width:0.1px;
+    width:90mm;
+    line-height: 1rem;
+    padding: 0.2rem;
+    font-weight: bold;
+    }
+   .display-6,h3{
+      margin-top: 0;
+      font-size: 12px!important;
+      font-weight: bold;
+    }
+  }
+  .list-group{
+    border: none;
+    border-radius: 0;
+
+  }
+  .tableUtil{
+    visibility: hidden;
+    display: none;
+  }
+  .invoice{
+    visibility: visible;
+    display: block;
+  }
+  .table{
+    min-width: max-content;
+    font-size:10px;
+    max-width: inherit;
+   color: black!important;
+   overflow: hidden !important;
+
+}
+.table-bordered{
+  border: solid 0.5px rgb(233, 231, 231);
+
+}
+td, tr,th{
+  padding: 1px;
+  margin: 0;
+  width: max-content;
+  text-align: start;
+  border-style: dashed;
+  margin-left: 2px;
+  max-width: fit-content;
+  flex-wrap: nowrap;
+
+}
+p{
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+}
+p{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: inherit;
+  text-transform: none;
+  gap: 1rem;
+}
+.list-group{
+  span{
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: 600;
+  mat-icon{
+    margin-right: 0.2rem
+  };
+}
+}
+
+
+span{
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-icon{
+    margin-right: 0.2rem
+  };
+}
+
+h3{
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+

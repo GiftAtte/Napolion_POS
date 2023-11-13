@@ -1,0 +1,30 @@
+<app-modal
+  [modalTitle]="data.modalTitle"
+  [isUpdate]="isUpdate"
+  (createActionEmitter)="addPrice()"
+  (updateActionEmitter)="updatePrice()"
+>
+  <modal-content>
+    <div class="container">
+      <form [formGroup]="priceForm">
+
+
+       <input type="hidden" formControlName="product">
+   
+
+        <div class="form-group dense-2" *ngIf="selectedProduct">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ selectedProduct?.bulkUnit }} &nbsp;price</mat-label>
+            <input type="number" matInput formControlName="bulkPrice" placeholder="Bulk Price"/>
+          </mat-form-field>
+        </div>
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Unit Price</mat-label>
+            <input type="number" matInput formControlName="unitPrice"  placeholder="unit price"/>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </modal-content>
+</app-modal>

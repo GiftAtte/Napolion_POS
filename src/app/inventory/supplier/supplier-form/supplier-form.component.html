@@ -1,0 +1,51 @@
+<app-modal
+  [modalTitle]="data.modalTitle"
+  [isUpdate]="isUpdate"
+  (createActionEmitter)="addSupplier()"
+  (updateActionEmitter)="updateSupplier()"
+>
+  <modal-content>
+    <div class="container">
+      <form [formGroup]="supplierForm">
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Address</mat-label>
+            <input matInput formControlName="address" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Products</mat-label>
+            <input
+              matInput
+              formControlName="products"
+              placeholder="Products eg rice,flour etc"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </modal-content>
+</app-modal>

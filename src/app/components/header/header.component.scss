@@ -1,0 +1,35 @@
+mat-menu-item{
+background-color: rgba(151, 136, 136, 0.5);
+}
+
+
+mat-icon.mat-card-avatar {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+ 
+}
+@media only screen and (max-width: 500px){
+  span{
+    font-size: 0.8rem;
+  }
+ .logo{
+    display: none;
+  }
+}
+.leftNav{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  small{
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+}
+
+
+@media only screen and (max-width: 600px){
+ small{
+  display: none;
+ }
+}

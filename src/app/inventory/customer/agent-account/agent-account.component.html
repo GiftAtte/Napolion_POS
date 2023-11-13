@@ -1,0 +1,195 @@
+
+
+<ng-container *ngIf="!data then loader;else profile" >
+
+</ng-container>
+
+<ng-template #profile>
+  <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+  <div class="container">
+<div class="row ">
+<div class="col-md-4 ">
+<div class="box  box-primary ">
+<center>
+ <img  [src]="imageSrc" alt="" class="img-thumbnail img-center">
+</center>
+<div class="profile-name">
+  <span class="display-6 fs-4">{{ data.name }}</span>
+  <span class="role display-4">SALES AGENT</span>
+</div>
+
+<div class="profile-list">
+  <mat-list>
+
+   <mat-list-item>
+    <mat-icon matListItemIcon>email</mat-icon>
+    <div matListItemTitle>{{ data?.email??"" }}</div>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon matListItemIcon>phone</mat-icon>
+    <div matListItemTitle>+234 {{ data.phone }}</div>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon matListItemIcon>home</mat-icon>
+    <div matListItemTitle>{{ data.address }}</div>
+  </mat-list-item>
+
+ <p  class="profile-button"> <span class="color-white display-4 fs-5">ACCOUNT INFO</span></p>
+
+ <mat-list-item >
+  <mat-icon matListItemIcon>money_off</mat-icon>
+  <div matListItemTitle>ACCOUNT LIMIT</div>
+  <div matListItemLine>&#8358;{{ data.accountLimit|number:"1.2" }}</div>
+</mat-list-item>
+
+ <mat-list-item >
+  <mat-icon matListItemIcon>monetization_on</mat-icon>
+  <div matListItemTitle>ACCOUNT BALANCE</div>
+  <div matListItemLine>&#8358;{{ accountBalance|number:"1.2" }}</div>
+</mat-list-item>
+</mat-list>
+</div>
+</div>
+</div>
+
+<div class="col box border-0 mx-4">
+  <div class="box box-primary">
+  <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+    <!-- PROFILE INFORMATION -->
+  <mat-tab label="ACCOUNT INFO">
+   <div class="card border-0 mt-2">
+    <div class="container">
+    <mat-list>
+      <p *ngIf="!account.length" class="text-center display-6 mt-5">No Transactions</p>
+<ng-container *ngFor="let acc of account" >
+
+  <mat-list-item (click)="acc.updateType==='PURCHASE'?navigateTransaction(acc.transaction):''" [ngClass]="acc.updateType==='PURCHASE'?'clickAble':''">
+    <mat-icon matListItemIcon [ngClass]="acc.amount>=0?'text-success':'text-danger'">folder</mat-icon>
+    <div matListItemTitle >
+      {{ acc.amount>=0?'CREDITED':'DEBIT' }}
+      <span class="float-end">
+        {{ acc.createdAt|date:'medium' }}
+       </span></div>
+    <div matListItemLine>
+      &#8358;{{ acc.amount|number:"1.2" }}
+      <span class="float-end" *ngIf="acc.updatedBy">
+        {{ acc.updatedBy.surname }}  {{ acc.updatedBy.firstName }}
+       </span>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</ng-container>
+
+
+
+
+
+
+    </mat-list>
+  </div>
+</div>
+  </mat-tab>
+
+
+  <!-- JOB INFORMATION -->
+  <mat-tab label="PURCHASE LIST">
+    <div class="container">
+      <app-table
+        [tableData]="transactions"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [defaultPageSize]="4"
+        [showAction]="true"
+        [isLoading]="isLoading"
+        [showDetailsButton]="true"
+        [showToolBar]="showToolBar"
+        (editEvent)="newTransaction($event)"
+        (deleteEvent)="deleteTransaction($event)"
+        (openNewFormEvent)="newTransaction($event)"
+        (showDetailsEvent)="showDetails($event)"
+      >
+      </app-table>
+    </div>
+    <mat-paginator
+      [length]="totalData"
+      [pageSize]="15"
+      [pageSizeOptions]="[5, 10,15, 25, 50, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </mat-tab>
+
+
+  <!-- SECURITY -->
+
+
+<!-- JOB INFORMATION -->
+<mat-tab label="UPDATE CENTER">
+  <div class="container">
+    <form [formGroup]="customerForm">
+
+    <div class=" form-group dense-2">
+   <mat-form-field appearance="outline" disabled>
+   <mat-label>Account Number</mat-label>
+   <input matInput formControlName="id" >
+   </mat-form-field>
+   </div>
+
+   <div class=" form-group dense-2">
+   <mat-form-field appearance="outline" disabled>
+   <mat-label>Account Name</mat-label>
+   <input matInput formControlName="name" >
+   </mat-form-field>
+   </div>
+
+
+   <div class=" form-group dense-2">
+    <mat-form-field appearance="outline">
+    <mat-label>UPDATE TYPE </mat-label>
+   <mat-select formControlName="updateType" placeholder="">
+       <mat-option [value]="">SELECT UPDATE TYPE</mat-option>
+       <mat-option value="CREDIT">CREDIT ACCOUNT</mat-option>
+       <mat-option value="DEBIT">DEBIT ACCOUNT</mat-option>
+   </mat-select>
+    </mat-form-field>
+    </div>
+   <div class=" form-group dense-2">
+   <mat-form-field appearance="outline">
+   <mat-label>Amount</mat-label>
+   <input matInput formControlName="amount">
+   </mat-form-field>
+   </div>
+
+
+   <div class="">
+   <button mat-raised-button
+   color="primary"
+   (click)="updateAgentAccount()"
+    class="float-end">
+   UPDATE ACCOUNT</button>
+   </div>
+   </form>
+   </div>
+
+</mat-tab>
+
+<!-- UPDATE CENTER -->
+
+
+</mat-tab-group>
+</div>
+</div>
+
+</div>
+</div>
+</ng-template>
+
+<!-- PROFILE FORM -->
+<!-- <ng-template >
+  .
+</ng-template> -->
+<ng-template #loader >
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

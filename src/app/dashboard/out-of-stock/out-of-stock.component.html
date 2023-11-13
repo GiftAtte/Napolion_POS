@@ -1,0 +1,33 @@
+<app-modal [modalTitle]="data.modalTitle"
+   [showActionBtn]="false"
+   >
+  <modal-content>
+    <div class="container">
+      <mat-list>
+        <ng-container *ngFor="let product of data.data">
+          <ng-container *ngIf="product._id[0]">
+          <mat-list-item >
+            <mat-icon matListItemIcon class="text-danger">folder</mat-icon>
+            <div matListItemTitle >
+              {{ product._id[0]?.name}}
+              <span class="float-end">
+
+               </span></div>
+            <div matListItemLine>
+              AvailableQty:
+              <span class="float-end">
+                {{ product.availableQty}}&nbsp;{{ product._id[0]?.piecesUnit}}
+               </span>
+            </div>
+          </mat-list-item>
+        </ng-container>
+        <mat-divider></mat-divider>
+      </ng-container>
+        </mat-list>
+  </div>
+  </modal-content>
+
+</app-modal>
+
+
+

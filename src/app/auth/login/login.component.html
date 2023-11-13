@@ -1,0 +1,41 @@
+<div class="container">
+  <form [formGroup]="userForm">
+    <mat-card>
+      <mat-card-content class="py-5 mx-2">
+        <h1 class="text-center display-6">LOGIN</h1>
+        <mat-form-field width="full">
+          <mat-label>Email Address</mat-label>
+          <input matInput placeholder="username" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <span *ngIf="message" class="text-danger mb-2">{{ message }}</span>
+        <div class="row mx-5">
+          <div class="spinner-border text-primary" role="status" *ngIf="showLoader" >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          
+          <button mat-fab extended color="primary" (click)="loginUser()">LOGIN</button>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+       
+        <!-- <a routerLink="/auth/register" color="primary" mat-button class="mx-5"
+          >New User?</a
+        > -->
+        
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

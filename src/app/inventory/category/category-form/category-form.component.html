@@ -1,0 +1,23 @@
+<app-modal [modalTitle]="data.modalTitle"
+   [isUpdate]="isUpdate"
+   (createActionEmitter)="addCategory()"
+   (updateActionEmitter)="updateCategory()"
+   >
+  <modal-content>
+    <div class="container">
+   <form [formGroup]="categoryForm">
+
+   <div class=" form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Input</mat-label>
+  <input matInput formControlName="name">
+  </mat-form-field>
+    </div>
+  </form>
+  </div>
+  </modal-content>
+
+</app-modal>
+
+
+

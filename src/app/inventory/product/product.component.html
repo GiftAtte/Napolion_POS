@@ -1,0 +1,30 @@
+<div class="card border-0 pb-5">
+  <div class="card-body">
+    <div class="container">
+      <app-table
+        [tableData]="data"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [paginationSizes]="[2, 4, 6]"
+        [defaultPageSize]="4"
+        [showAction]="true"
+        [isLoading]="isLoading"
+        [showDetailsButton]="true"
+        [showToolBar]="showToolBar"
+        (editEvent)="openProductForm($event)"
+        (deleteEvent)="deleteProduct($event)"
+        (openNewFormEvent)="openProductForm($event)"
+      >
+      </app-table>
+    </div>
+    <mat-paginator class="mb-5 pb-5"
+      [length]="totalData"
+      [pageSize]="100"
+      [pageSizeOptions]="[25, 50,100,200,400]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

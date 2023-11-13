@@ -1,0 +1,130 @@
+
+
+<ng-container *ngIf="gate.isAuthenticated()">
+<mat-drawer-container  class="example-container" autosize style="position: fixed;">
+  <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="opened" >
+   <h3 class="nav-title "><b>Welcome Back!&nbsp; <br>{{ gate.currentUser?.name }}</b></h3>
+<mat-nav-list>
+<a mat-list-item
+ *ngFor="let item of menuItems"
+ [routerLink]="item.link"
+ routerLinkActive="bg-active"
+ (click)="checkMobile()"
+ >
+  <mat-icon matListItemIcon>{{ item.icon }}</mat-icon> {{ item.name }}
+</a>
+
+<!-- INVENTORY LINKS -->
+<mat-expansion-panel *ngIf="gate.isAdmin()" mat-list-item  (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" elevation="0" class="mat-elevation-z0">
+    <mat-expansion-panel-header>
+     <a mat-list-item >
+  <mat-icon matListItemIcon color="primary">store</mat-icon> Inventory
+   </a>
+  </mat-expansion-panel-header>
+  <a mat-list-item
+ *ngFor="let item of inventoryItems"
+ [routerLink]="item.link"
+ routerLinkActive="bg-active"
+ (click)="checkMobile()"
+ >
+  <mat-icon matListItemIcon>{{ item.icon }}</mat-icon> {{ item.name }}
+</a>
+</mat-expansion-panel>
+
+<!-- END OF INVENTORY -->
+
+
+
+<!-- INVENTORY LINKS -->
+<!-- <mat-expansion-panel mat-list-item  (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" elevation="0" class="mat-elevation-z0">
+    <mat-expansion-panel-header>
+     <a mat-list-item >
+  <mat-icon matListItemIcon class="text-warning">local_atm</mat-icon>Petty Account
+   </a>
+  </mat-expansion-panel-header>
+  <a mat-list-item
+ *ngFor="let item of pettyItems"
+ [routerLink]="item.link"
+ routerLinkActive="bg-active"
+ (click)="checkMobile()"
+ >
+  <mat-icon matListItemIcon>{{ item.icon }}</mat-icon> {{ item.name }}
+</a>
+</mat-expansion-panel> -->
+
+<!-- END OF INVENTORY -->
+
+
+
+<!-- HR LINKS -->
+<!-- <mat-expansion-panel mat-list-item  (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" elevation="0" class="mat-elevation-z0">
+    <mat-expansion-panel-header>
+  <a mat-list-item >
+  <mat-icon matListItemIcon color="primary">people</mat-icon> HR Manager
+   </a>
+  </mat-expansion-panel-header>
+  <a mat-list-item
+ *ngFor="let item of inventoryItems"
+ [routerLink]="item.link"
+ routerLinkActive="bg-active"
+ (click)="checkMobile()"
+ >
+  <mat-icon matListItemIcon>{{ item.icon }}</mat-icon> {{ item.name }}
+</a>
+</mat-expansion-panel> -->
+
+<!-- END OF HR MANAGER -->
+
+<!-- SETTINGS BEGINS HERE -->
+<mat-expansion-panel *ngIf="gate.isAdmin()"  mat-list-item  (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false" elevation="0" class="mat-elevation-z0">
+    <mat-expansion-panel-header>
+     <a mat-list-item  >
+  <mat-icon matListItemIcon class="text-danger">settings</mat-icon> Settings
+   </a>
+  </mat-expansion-panel-header>
+  <a mat-list-item
+ *ngFor="let item of settingsItems"
+ [routerLink]="item.link"
+ routerLinkActive="bg-active"
+ (click)="checkMobile()"
+ >
+  <mat-icon matListItemIcon>{{ item.icon }}</mat-icon> {{ item.name }}
+</a>
+</mat-expansion-panel>
+<!-- SETTINGS ENDS HERE -->
+
+
+
+</mat-nav-list>
+</mat-drawer>
+<mat-drawer-content color="primary">
+<mat-card  class="main-content ">
+  <mat-card-header>
+    <mat-card-title>
+     <span>
+    <button mat-icon-button (click)="toggleOpened()" color="primary" >
+       <mat-icon> {{ opened?"keyboard_backspace":"keyboard_tab" }} </mat-icon>
+    </button>
+  </span>
+       DASHBOARD</mat-card-title>
+
+</mat-card-header>
+  <mat-card-content >
+
+ <router-outlet></router-outlet>
+
+
+</mat-card-content>
+</mat-card>
+
+</mat-drawer-content>
+
+</mat-drawer-container>
+</ng-container>
+
+
+

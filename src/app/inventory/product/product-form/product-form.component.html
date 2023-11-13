@@ -1,0 +1,70 @@
+<app-modal
+  [modalTitle]="data.modalTitle"
+  [isUpdate]="isUpdate"
+  (createActionEmitter)="addProduct()"
+  (updateActionEmitter)="updateProduct()"
+  [showLoader]="showLoader"
+
+>
+  <modal-content>
+    <div class="container">
+      <form [formGroup]="productForm">
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="form-group dense-2">
+        <mat-form-field appearance="outline">
+        <mat-label>Product Category</mat-label>
+       <mat-select formControlName="category">
+       <mat-option selected>Select Category</mat-option>
+         <ng-container *ngIf="category" >
+         <mat-option
+         *ngFor="let cat of category" [value]="cat._id">
+         {{ cat.name }}
+        </mat-option>
+        </ng-container>
+       </mat-select>
+    </mat-form-field>
+        </div>
+
+        <div class="form-group dense-2">
+          <mat-form-field appearance="outline">
+          <mat-label>Bulk Unit </mat-label>
+         <mat-select formControlName="bulkUnit" (selectionChange)="setBulkUnit($event)">
+         <mat-option selected>Select Bulk Unit</mat-option>
+           <mat-option
+           *ngFor="let unit of  productUnits" [value]="unit.value">
+           {{ unit.name }}
+          </mat-option>
+         </mat-select>
+      </mat-form-field>
+          </div>
+
+
+          <div class="form-group dense-2">
+            <mat-form-field appearance="outline">
+            <mat-label>Pieces Unit </mat-label>
+           <mat-select formControlName="piecesUnit" >
+           <mat-option selected>Select Peices</mat-option>
+             <mat-option
+             *ngFor="let unit of  productUnits" [value]="unit.value">
+             {{ unit.name }}
+            </mat-option>
+           </mat-select>
+        </mat-form-field>
+            </div>
+
+          <div class="form-group dense-2" *ngIf="bulkUnit">
+            <mat-form-field appearance="outline">
+              <mat-label>Quantity/{{ bulkUnit }}</mat-label>
+              <input matInput formControlName="bulkQty" />
+            </mat-form-field>
+          </div>
+
+      </form>
+    </div>
+  </modal-content>
+</app-modal>

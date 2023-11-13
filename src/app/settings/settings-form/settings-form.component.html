@@ -1,0 +1,66 @@
+<app-modal
+[modalTitle]="data.modalTitle"
+[isUpdate]="isUpdate"
+  (createActionEmitter)="addSettings()"
+(updateActionEmitter)="updateSettings()"
+>
+  <modal-content>
+    <div class="container">
+   <form [formGroup]="settingForm">
+  <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Company Name</mat-label>
+  <input matInput formControlName="companyName">
+  </mat-form-field>
+  </div>
+
+   <div class=" form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Phone Number</mat-label>
+  <input matInput formControlName="phone">
+  </mat-form-field>
+  </div>
+
+   <div class=" form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Location Address</mat-label>
+  <input matInput formControlName="address">
+  </mat-form-field>
+  </div>
+
+   <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Email Address</mat-label>
+  <input matInput formControlName="email">
+  </mat-form-field>
+  </div>
+
+   <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>State of Location</mat-label>
+  <input matInput formControlName="state">
+  </mat-form-field>
+  </div>
+
+   
+ <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Websit Address(Optinal)</mat-label>
+  <input matInput formControlName="website">
+  </mat-form-field>
+  </div>
+
+<!-- <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Logo</mat-label>
+  <input type="file" matInput formControlName="logo">
+  </mat-form-field>
+  </div> -->
+
+  </form>
+  </div>
+  </modal-content>
+</app-modal>
+
+
+

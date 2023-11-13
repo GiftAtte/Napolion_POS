@@ -1,0 +1,38 @@
+<div class="card border-0">
+  <div class="card-body">
+    <div class="container">
+
+      <app-table
+        [tableData]="data"
+        [isLoading]="isLoading"
+        [tableTitle]="tableTitle"
+        [tableColumns]="tableHeaders"
+        [isFilterable]="true"
+        [isPageable]="true"
+        [showAction]="true"
+        [showDetailsButton]="true"
+        [showToolBar]="showToolBar"
+        (editEvent)="openStockForm($event)"
+        (deleteEvent)="deleteStock($event)"
+        (openNewFormEvent)="openStockForm($event)"
+        (linkEvent)="gotoProfile($event)"
+      >
+
+      <custom-button>
+        <button mat-icon-button title="Destock" class="text-danger"
+        (click)="destockProduct()"
+        >
+          <mat-icon class="mat-18">remove_from_queue</mat-icon>
+        </button>
+      </custom-button>
+      </app-table>
+    </div>
+    <mat-paginator class="mb-5 pb-5"
+      [length]="totalData"
+      [pageSize]="500"
+      [pageSizeOptions]="[10, 50, 100, 200, 500]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

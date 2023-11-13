@@ -1,0 +1,24 @@
+<app-modal
+[modalTitle]="data.modalTitle"
+[isUpdate]="isUpdate"
+  (createActionEmitter)="addDepartment()"
+ (updateActionEmitter)="updateDepartment()"
+>
+  <modal-content>
+    <div class="container">
+   <form [formGroup]="departmentForm">
+  <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Department Name</mat-label>
+  <input matInput formControlName="name">
+  </mat-form-field>
+  </div>
+
+
+  </form>
+  </div>
+  </modal-content>
+</app-modal>
+
+
+

@@ -1,0 +1,128 @@
+
+
+<ng-container *ngIf="data then content; else loader" >
+
+</ng-container>
+
+
+<ng-template #loader>
+  <!-- <mat-spinner></mat-spinner> -->
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+</ng-template>
+
+
+
+<ng-template #content class="mb-5 pb-5">
+<div class="card border-0 " id="invoice">
+     <div class="container">
+      <h3 class="text-center  mb-0">
+        <span>
+          <img src="../../../../assets/logo.png" style="margin-top: -10px;" alt="logo" height="40">
+        </span>
+        {{company.companyName }}
+      </h3>
+      <p class="text-center" style="margin-top: -5px;font-size: 12px;">{{company.address }}, {{ company.state }}</p>
+         <p><b>CALL OUR CUSTOMER CARE</b></p>
+      <p class="text-center">
+        <span>{{company.phone }}</span>,<br>
+      </p>
+      <p><span>{{company.email }}</span></p>
+        <p class="text-center display-6 fs-5">SALES RECEIPT</p>
+        <p class="text-center">Customer's Copy</p>
+      <div >
+
+          <table class="table" style="width: max-content;">
+            <tr>
+              <td>Invoice No. :</td>
+              <td>{{ data?.invoiceNo }}</td>
+            </tr>
+            <tr>
+              <td>Customer :</td>
+              <td> {{ data?.customerName}}</td>
+            </tr>
+            <tr>
+              <td>Date :</td>
+              <td> {{ data?.createdAt| date:'medium'}}</td>
+            </tr>
+            <tr>
+              <td>Sales Person :</td>
+              <td> {{data.employee?.surname}},&nbsp;{{data.employee?.firstName}}</td>
+            </tr>
+          </table>
+        </div>
+<ng-container  *ngIf="data?.transactionDetails">
+<div class="card border-0">
+    <div class="row ">
+      <p class="display-5 fs-3 mb-3">ITEM LIST</p>
+  <div class="col-md-8 col-xs-12">
+<table class="table ">
+<thead>
+<tr class="bottom-border text-uppercase" >
+  <th>#</th>
+  <th>Descrition</th>
+  <th>Qty</th>
+  <th> Price</th>
+
+  <th>Amount(&#8358;)</th>
+
+</tr>
+</thead>
+<tbody>
+
+  <tr *ngFor="let item of data.transactionDetails; let i=index" [ngClass]="i==data.transactionDetails.length-1?'bottom-border':''">
+   <td>{{ i+1 }}</td>
+   <td>{{ item.productName }}</td>
+   <td>{{ item.displayedQuantity}}</td>
+   <td>{{ (item.unitPrice)| number : '1.2'}}</td>
+   <td>{{ item.amount| number : '1.2' }}</td>
+
+  </tr>
+
+
+    <tr >
+    <th colspan="4">Total Amount</th>
+    <th colspan="2">&#8358;{{ data.transactionAmount| number : '1.2' }}</th>
+    </tr>
+    <tr>
+    <th colspan="4">Discount</th>
+    <th colspan="2">	&#8358;{{ data.discount| number : '1.2' }}</th>
+    </tr>
+    <tr class="bottom-border">
+    <th colspan="4">Total Due <span class="float-end">{{ data.paymentOption}} </span></th>
+    <th colspan="2">&#8358;	{{ data.discountedAmount| number : '1.2' }}</th>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <p >AMOUNT IN WORD:</p>
+        <span class="text-center" style="font-size: 10px;"> {{ amountInWord }}</span>
+      </td>
+    </tr>
+</tbody>
+</table>
+
+  </div>
+
+
+ <div class="col container action-group tableUtil" >
+
+
+              <button [disabled]="isPrinted" (click)="printInvoice(print.print('invoice'))">PRINT INVOICE</button>
+              <button *ngIf="!gate.isAdmin()" (click)="downloadPDF()"> DOWNLOAD INVOICE</button>
+              <button (click)="newTransaction()">NEW ORDER</button>
+
+ </div>
+  </div>
+</div>
+</ng-container>
+<p class="text-center display-6 fs-5">---Thanks For Your Patronage---</p>
+
+<hr>
+<span class="text-center">CUSTOMER SIGN</span>
+<p class="text-center"><b>---No Refund of money after payment---</b></p>
+<p class="text-center"><b>---No Exchange of goods after paymen--- </b></p>
+</div>
+
+</div>
+</ng-template>
+

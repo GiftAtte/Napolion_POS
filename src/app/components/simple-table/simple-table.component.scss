@@ -1,0 +1,9 @@
+@import "../../../color";
+.tool-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  color: rgba($color-black-light,0.8);
+  font-size: 0.8rem;
+}
+

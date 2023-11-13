@@ -1,0 +1,65 @@
+<div class="card border-0">
+  <div class="row mt-3 mx-3">
+    <div mat-card-title class="fs-5 mb-3 pl-1">Recent Tansactions</div>
+
+    <div class="row tool-box-container" *ngIf="showToolBar">
+      <div class="col"><input class="form-control" placeholder="search" /></div>
+      <div class="col">
+        <div class="tool-box">
+          <span>
+            <button mat-icon-button>
+              <mat-icon>printer</mat-icon>
+            </button>
+          </span>
+          <span
+            ><button mat-icon-button>
+              <mat-icon>picture_as_pdf</mat-icon>
+            </button></span
+          >
+          <span class="float-start">
+            <app-dialog-opener></app-dialog-opener>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <mat-card-content class="table-responsive">
+    <table class="table">
+      <thead>
+        
+        <tr class="text-uppercase">
+          <th>#</th>
+          <th *ngFor="let header of tableHeaders">{{ header.header }}</th>
+          <ng-container *ngIf="showAction">
+            <th class="text-center">Action</th>
+           </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data; let i=index">
+          <td span="0.5">{{ i+1 }}</td>
+          <td *ngFor="let headers of tableHeaders">
+            <ng-container *ngIf="headers.dataType === 'date'">
+              {{ row[headers.key] | date : "medium" }}
+            </ng-container>
+            <ng-container *ngIf="headers.dataType !== 'date'">
+              {{ row[headers.key] }}
+            </ng-container>
+          </td>
+
+           <ng-container *ngIf="showAction">
+               <td class="table-actions text-center">
+                 <button mat-icon-button title="View more details" (click)="showDetails(row)"><mat-icon >visibility</mat-icon></button>
+                 <button mat-icon-button title="edit" (click)="editDetails(row)"><mat-icon >edit</mat-icon></button>
+                 <button mat-icon-button title="delete" (click)="deleteDetails(row)"><mat-icon >delete</mat-icon></button>
+               </td>
+           </ng-container>
+           <ng-content select="custom-ation"></ng-content>
+        </tr>
+  
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions align="start"> </mat-card-actions>
+</div>

@@ -1,0 +1,77 @@
+<app-modal
+[modalTitle]="data.modalTitle"
+[isUpdate]="isUpdate"
+[showLoader]="showLoader"
+  (createActionEmitter)="addEmployee()"
+(updateActionEmitter)="updateEmployee()"
+>
+  <modal-content>
+    <div class="container">
+   <form [formGroup]="employeeForm">
+  <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Surname</mat-label>
+  <input matInput formControlName="surname">
+  </mat-form-field>
+  </div>
+
+   <div class=" form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>First Name</mat-label>
+  <input matInput formControlName="firstName">
+  </mat-form-field>
+  </div>
+
+   <div class="form-group dense-2">
+  <mat-form-field appearance="outline">
+  <mat-label>Phone</mat-label>
+  <input matInput formControlName="phone">
+  </mat-form-field>
+  </div>
+
+   <div class=" form-group ">
+    <mat-radio-group formControlName="gender">
+    <mat-radio-button  value="male">
+        Male
+    </mat-radio-button>
+    <mat-radio-button  value="female">
+        Female
+    </mat-radio-button>
+    </mat-radio-group>
+   </div>
+
+   <div class=" form-group dense-2">
+   <mat-form-field appearance="outline">
+  <mat-label>Department</mat-label>
+  <mat-select formControlName="department">
+    <mat-option>Select Department</mat-option>
+    <mat-option *ngFor="let dept of department" [value]="dept.name">{{ dept.name }}</mat-option>
+  </mat-select>
+</mat-form-field>
+  </div>
+
+<div class="form-group dense-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Designation</mat-label>
+      <input type="text"
+             placeholder="Pick Designation"
+             aria-label="text"
+             matInput
+             [formControl]="designation"
+             formControlName="designation"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredDesignation | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  </form>
+  </div>
+  </modal-content>
+</app-modal>
+
+
+

@@ -1,0 +1,256 @@
+<div class="box box-primary pb-5">
+  <p class="display-6 fs-4 mx-5 pt-5">SALES WIZARD</p>
+  <mat-stepper [linear]="false" #stepper class="mb-2 pb-5">
+  <mat-step [stepControl]="firstFormGroup" >
+    <ng-template matStepLabel>GET PRODUCT</ng-template>
+
+    <div class="row container">
+      <div class="col-md-8 col-xs-12 my-5">
+          <mat-form-field appearance="outline" >
+            <mat-label>Products</mat-label>
+           <mat-select
+           multiple
+           [(ngModel)]="product"
+           #singleSelect>
+             <ng-container *ngIf="products" >
+              <mat-option selected>Select Product</mat-option>
+              <mat-option>
+              <ngx-mat-select-search [formControl]="productId"></ngx-mat-select-search>
+            </mat-option>
+              <mat-option
+              *ngFor="let pro of filteredProducts| async" [value]="pro.productId">
+              {{ pro.productName }}
+             </mat-option>
+            </ng-container>
+           </mat-select>
+        </mat-form-field>
+
+
+        </div>
+<div class="col my-5">
+  <mat-form-field appearance="outline">
+    <mat-label> DRAFT</mat-label>
+    <mat-select [(ngModel)]="draftId" (valueChange)="onDraftChanged($event)">
+        <mat-option [value]="">SELECT TRANSACTION</mat-option>
+        <mat-option  *ngFor="let draft of drafts" [value]="draft._id">{{ draft.customerName }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="col my-5">
+  <span>
+    <button (click)="addToCart()" class="btn-default float-end" mat-icon-button title="ADD TO CART">
+      <mat-icon >add</mat-icon>
+    </button>
+    <button *ngIf="draftId" (click)="deleteDraft()" class="btn-default float-end" mat-icon-button title="DELETE DRAFT">
+      <mat-icon >delete</mat-icon>
+    </button>
+  </span>
+
+</div>
+      </div>
+      
+
+    
+    <div class="card border-0">
+      <div class="card-body">
+        <div class="container table-responsive ">
+          <ng-container  *ngIf="selectedProducts.length" class="mb-5">
+    <table class="table table-strip">
+    <thead>
+    <tr class="bottom-border">
+      <th colspan="0.2">S/N</th>
+      <th>Product</th>
+      <th>AVailable Qty</th>
+      <th>Bulk Price</th>
+      <th>Pieces Price</th>
+    </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let item of selectedProducts;let i=index" [ngClass]="i==orderDetails.length-1?'bottom-border':''">
+       <td>{{ i+1 }}</td>
+       <td>{{ item.productName }}</td>
+       <td>{{ item.availableQty}}</td>
+       <td>&#8358;{{ item.bulkPrice}}/{{ item.bulkUnit }}</td>
+       <td>&#8358;{{ item.unitPrice}}/{{ item.piecesUnit }}</td>
+       <td>
+        <button mat-icon-button (click)="removeFromCart(item.productId)">
+          <mat-icon> delete</mat-icon>
+        </button>
+       </td>
+      </tr>
+
+    </tbody>
+    </table>
+  </ng-container>
+      </div>
+    </div>
+    </div>
+ 
+  <div>
+    <button mat-button matStepperNext>ADD QUANTITY</button>
+  </div>
+</mat-step>
+<!--  END OF FIRST STEP-->
+
+<!-- LOCATION STEP -->
+<mat-step [stepControl]="secondFormGroup" >
+
+    <ng-template matStepLabel>ADD QUANTITY</ng-template>
+    <ng-container *ngIf="selectedProducts.length" >
+
+     
+
+      <div class="container table-responsive ">
+
+        <table class="table table-strip">
+        <thead>
+        <tr class="bottom-border">
+          <th colspan="0.2">S/N</th>
+          <th>Product</th>
+          <th>AVailable Qty</th>
+          <th>Bulk Price</th>
+          <th>Pieces Price</th>
+          <th>Selected Qty</th>
+          <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let item of selectedProducts;let i=index" [ngClass]="i==orderDetails.length-1?'bottom-border':''">
+           <td>{{ i+1 }}</td>
+           <td>{{ item.productName }}</td>
+           <td>{{ item.availableQty}}</td>
+           <td>&#8358;{{ item.bulkPrice}}/{{ item.bulkUnit }}</td>
+           <td>&#8358;{{ item.unitPrice}}/{{ item.piecesUnit }}</td>
+           <td>{{ item?.displayedQuantity }}</td>
+           <td>&#8358;{{ item?.amount|number:"1.2" }}</td>
+
+           <td class="tool-box">
+            <button mat-icon-button (click)="showPaymentDialog(item)">
+              <mat-icon> edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="removeFromCart(item.productId)">
+              <mat-icon> delete</mat-icon>
+            </button>
+           </td>
+          </tr>
+
+
+    <tr >
+      <th colspan="6">Total Amount</th>
+      <th colspan="3">&#8358;{{ transactionAmount| number : '1.2' }}</th>
+      </tr>
+      <tr>
+      <th colspan="6">Discount</th>
+      <th colspan="3">	&#8358;{{ discount| number : '1.2' }}</th>
+      </tr>
+      <tr class="bottom-border">
+      <th colspan="6">Total Due <span class="float-end"></span></th>
+      <th colspan="3">&#8358;	{{ (transactionAmount-discount)| number : '1.2' }}</th>
+      </tr>
+        </tbody>
+        </table>
+          </div>
+          <div class="row my-3">
+          <div class="col-md-5 form-group mx-5 dense-2">
+            <div class="row" *ngIf="!isAgent">
+            <div class="form-group col-md-8" >
+            <mat-form-field appearance="outline">
+              <mat-label>CUSTOMER'S NAME</mat-label>
+              <input matInput name="customerName" type="text" [(ngModel)]="customerName">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <button mat-button color="primary" (click)="setCustomerType(true)">
+              <mat-icon class="mat-18">person_add</mat-icon>
+              ADD AGENT
+            </button>
+        </div>
+          </div>
+           <div class="row" *ngIf="isAgent">
+          <div class="col-md-8" >
+            <mat-form-field appearance="outline">
+              <mat-label>SALES AGENT</mat-label>
+             <mat-select (valueChange)="setAgent($event)" name="agentId" [(ngModel)]="agentId">
+             <mat-option selected>
+              SELECT AGENT</mat-option>
+               <ng-container *ngIf="customers.length" >
+               <mat-option class="text-uppercase"
+               *ngFor="let option of customers" [value]="option._id">
+               {{option.name}}
+              </mat-option>
+              </ng-container>
+              </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class="col">
+              <button mat-button color="primary" (click)="setCustomerType(false)">
+              ADD CUSTOMER
+            </button>
+          </div>
+          <p class="text-success display-6 fs-5" *ngIf="isAgent"><b>AGENT BALANCE: &#8358;{{ salesPersonAccountBalance|number:'1.2' }}</b></p>
+          </div>
+          </div>
+
+
+
+          <div class="col-md-5 row dense-2">
+            <div class="col">
+             <mat-form-field appearance="outline">
+               <mat-label>PAYMENT METHOD</mat-label>
+              <mat-select name="paymentOption" [(ngModel)]="paymentOption">
+              <mat-option selected>Select payment type</mat-option>
+                <ng-container *ngIf="paymentOptions" >
+                <mat-option class="text-uppercase"
+                *ngFor="let option of paymentOptions" [value]="option">
+                {{option}}
+               </mat-option>
+               </ng-container>
+              </mat-select>
+           </mat-form-field>
+            </div>
+        <div class="col">
+  <mat-form-field appearance="outline">
+   <mat-label>Discount</mat-label>
+   <input matInput type="number" name="discount" [(ngModel)]="discount" >
+  </mat-form-field>
+         </div>
+
+         </div>
+
+         <span class="text-danger" *ngIf="salesError">
+          Sorry! Insufficient Account Balance
+          <br>
+          Account Balance: &#8358;{{ salesPersonAccountBalance |number:'1.2'}}
+          <br>
+          Transaction Amount: &#8358;{{ transactionAmount |number:'1.2'}}
+        </span>
+       
+          </div>
+    <button mat-raised-button
+    color="primary"[disabled]="isLoading"
+    class="float-end mx-5"
+    (click)="saveOrder()"
+    >
+    COMPLETE SALES</button>
+    </ng-container>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+ 
+   <ng-container *ngIf="erroMsg">
+    <h5 class="text-danger mt-2 text-center">{{erroMsg}}</h5>
+   </ng-container>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="saveToDraft()">SAVE TO DRAFT</button>
+    </div>
+
+</mat-step>
+<!-- END OF LOCATION -->
+
+<!-- FINAL STEP -->
+
+
+
+

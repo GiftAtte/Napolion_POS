@@ -1,0 +1,62 @@
+
+<div class=" border-0 content">
+  <div class=" row">
+  <mat-card-content>
+  <div class=" row gap-2">
+
+    <div class="col col-xs-12">
+<app-info-box boxTitle="Today's Sales"
+    boxIcon="bi bi-currency-dollar"
+     valueUnit="&#8358;"
+     [boxValue]="todaySales"
+     >
+    </app-info-box>
+    </div>
+     <div class="col col-xs-12">
+<app-info-box
+boxTitle="Out of Stock"
+boxIcon="bi bi-boxes"
+[boxValue]="outOfStock"
+(clickAction)="showOutOfStock()"
+>
+
+</app-info-box>
+    </div>
+      <div class="col col-xs-12">
+<app-info-box boxTitle="Expenditures" boxIcon="bi bi-bar-chart" valueUnit="&#8358;" [boxValue]="0.00"></app-info-box>
+    </div>
+     <div class="col col-xs-12">
+<app-info-box boxTitle="Staff" boxIcon="bi bi-people"></app-info-box>
+    </div>
+  </div>
+  </mat-card-content>
+</div>
+
+  <div class="row gap-2 my-3">
+    <div class="col col-xs-12">
+<app-datatable
+ tableTitle="Recent Transactions"
+ [showToolBar]="false"
+ [data]="data"
+ [showAction]="false"
+ [tableHeaders]="tableHeaders"
+ >
+</app-datatable>
+<div class="row">
+  <a class="btn text-warning" routerLink="/transactions" *ngIf="data.length>7">
+    View More Transactions
+  </a>
+</div>
+    </div>
+    <div class="col col-xs-12">
+      <div class="card border-0">
+      <mat-card-content>
+  <app-full-calendar></app-full-calendar>
+
+      </mat-card-content>
+</div>
+    </div>
+  </div>
+
+
+</div>
